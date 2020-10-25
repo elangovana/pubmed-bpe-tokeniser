@@ -25,7 +25,7 @@ pytest
 
 1. Download pubmed json files using https://github.com/elangovana/pubmed-downloader and save to say "data" directory
 
-2. Run data
+2. Run tokeniser
 
 ```bash
 
