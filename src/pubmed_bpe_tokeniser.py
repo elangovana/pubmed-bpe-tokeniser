@@ -1,7 +1,9 @@
-
+import argparse
 import glob
 import json
+import logging
 import os
+import sys
 import tempfile
 from typing import List
 
@@ -14,7 +16,7 @@ class PubmedBPETokenisor:
         self.min_frequency = min_frequency
         self.vocab_size = vocab_size
         self._tokenizer = CharBPETokenizer(unk_token="<UNK>", lowercase=lower_case)
-        self._special_tokens = ["<PAD>" ]
+        self._special_tokens = ["<PAD>"]
 
     def train(self, pubmed_json_files: List[str], dest_token_file_json, tempdir=None):
         tempdir = tempdir or tempfile.mkdtemp()
@@ -53,3 +55,24 @@ class PubmedBPETokenisor:
     def _clean_up_temp_files(self, textfiles):
         for f in textfiles:
             os.remove(f)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--datadir",
+                        help="The input train  dir", required=True)
+    parser.add_argument("--outputfile",
+                        help="The output vocab file", default="vocab.json")
+
+    parser.add_argument("--log-level", help="Log level", default="INFO", choices={"INFO", "WARN", "DEBUG", "ERROR"})
+    args = parser.parse_args()
+
+    # Set up logging
+    logging.basicConfig(level=logging.getLevelName(args.log_level), handlers=[logging.StreamHandler(sys.stdout)],
+                        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+    print(args.__dict__)
+
+    # Run
+    tokenisor = PubmedBPETokenisor()
+    tokenisor.train_from_dir(args.datadir, args.outputfile)
