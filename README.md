@@ -25,12 +25,12 @@ pytest
 
 1. Download pubmed json files using https://github.com/elangovana/pubmed-downloader and save to say "data" directory
 
-2. Run tokeniser
+2. Run tokeniser with sample data in e.g. tests/data
 
 ```bash
 
 export PYTHONPATH=./src
-python src/pubmed_bpe_tokeniser.py --datadir data --outputfile vocab.json
+python src/pubmed_bpe_tokeniser.py --datadir tests/data --outputfile vocab.json
 
 ```
 
