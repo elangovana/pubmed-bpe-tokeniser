@@ -32,6 +32,7 @@ class ContinousIntegrationStack(core.Stack):
 
         # CFN parameters - Source repo
         source_repo_parameter = core.CfnParameter(self, "githubUrl", type="String",
+                                                  default="elangovana/pubmed-bpe-tokeniser",
                                                   description="The github repo url")
         source_repo = source_repo_parameter.value_as_string
 
@@ -50,7 +51,7 @@ class ContinousIntegrationStack(core.Stack):
         # CFN parameters - build image
         branch_name_parameter = core.CfnParameter(self, "branchName", type="String",
                                                   description="The branch name",
-                                                  default="master")
+                                                  default="main")
         branch_name = branch_name_parameter.value_as_string
 
         # CFN parameters - docker repo
