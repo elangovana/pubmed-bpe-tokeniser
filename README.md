@@ -21,11 +21,11 @@ pytest
 ```
 
 
-## How to run
+## How to run locally
 
 1. Download pubmed json files using https://github.com/elangovana/pubmed-downloader and save to say "data" directory
 
-2. Run tokeniser with sample data in e.g. tests/data
+2. Run tokeniser with sample pubmed json in e.g. tests/data
 
 ```bash
 
@@ -35,15 +35,17 @@ python src/pubmed_bpe_tokeniser.py --datadir tests/data --outputfile vocab.json
 ```
 
 
-3. To run on Amazon Sagemaker
+##  Run on Amazon Sagemaker
+
+1. Deploy ECR Docker and roles as shown in [infra/README.md](infra/README.md)
     
-    - Install sagemaker
+2. Install sagemaker
     
     ```bash
      pip install -r requirements_notebook.txt
     ```
-    
-    - See notebook [sagemaker.ipynb](sagemaker.ipynb)
+
+3. See notebook [sagemaker.ipynb](sagemaker.ipynb)
 
 
 
