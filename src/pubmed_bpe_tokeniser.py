@@ -18,6 +18,10 @@ class PubmedBPETokenisor:
         self._tokenizer = CharBPETokenizer(unk_token="<UNK>", lowercase=lower_case)
         self._special_tokens = ["<PAD>"]
 
+    @property
+    def _logger(self):
+        return logging.getLogger(__name__)
+
     def train(self, pubmed_json_files: List[str], dest_token_file_json, tempdir=None):
         tempdir = tempdir or tempfile.mkdtemp()
 
@@ -64,6 +68,9 @@ if __name__ == '__main__':
     parser.add_argument("--outputfile",
                         help="The output vocab file", default="vocab.json")
 
+    parser.add_argument("--vocabsize",
+                        help="The vocab size", default=20000, type=int)
+
     parser.add_argument("--log-level", help="Log level", default="INFO", choices={"INFO", "WARN", "DEBUG", "ERROR"})
     args = parser.parse_args()
 
@@ -74,5 +81,5 @@ if __name__ == '__main__':
     print(args.__dict__)
 
     # Run
-    tokenisor = PubmedBPETokenisor()
+    tokenisor = PubmedBPETokenisor(vocab_size=args.vocabsize)
     tokenisor.train_from_dir(args.datadir, args.outputfile)
