@@ -65,10 +65,10 @@ class PubmedBPETokenisor:
 
         assert len(json_files) > 0, f"No files matching pattern {file_search_pattern} were found"
 
-        self._logger.info("Starting training using {} files".format(len(file_search_pattern)))
+        self._logger.info("Starting training using {} files".format(len(json_files)))
         self.train(json_files, dest_token_file_json, tempdir)
 
-        self._logger.info("Training complete".format(len(json_files)))
+        self._logger.info("Training complete")
 
     def _clean_up_temp_files(self, textfiles):
         self._logger.info("Cleaning up temp files")
