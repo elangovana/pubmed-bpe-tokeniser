@@ -30,7 +30,7 @@ class SageMakerStack(core.Stack):
 
         # CFN parameters - docker repo
         docker_repo_arn_parameter = core.CfnParameter(self, "dockerRepoArn", type="String",
-                                                      description="The docker image repo for sagemaker image, e.g. 746614075791.dkr.ecr.us-west-2.amazonaws.com/sagemaker-scikit-learn:0.23-1-cpu-py3", )
+                                                      description="The docker image repo for sagemaker image, e.g. arn:aws:ecr:us-east-2:1111:repository/bpe-tokeniser", )
         docker_repo_arn = docker_repo_arn_parameter.value_as_string
 
         # CFN parameters - bucket src bucket
