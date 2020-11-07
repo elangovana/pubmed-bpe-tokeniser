@@ -7,9 +7,6 @@ This deploys AWS infrastructure such as
 3. AWS Codepipeline for building docker
 4. Docker in AWS ECR
 
-### Prerequisites 
-
-
 
 
 ## Setup 
@@ -18,7 +15,14 @@ This deploys AWS infrastructure such as
 
    - Python 3.7
    - Create virtual environment
-   - AWS CDK , see https://docs.aws.amazon.com/cdk/latest/guide/work-with-cdk-python.html
+   - Node  10
+   - Install CDK. 
+   
+   ```bash
+    ../ci_build/cdk_setup.sh
+   ```
+   
+   For more details, see https://docs.aws.amazon.com/cdk/latest/guide/work-with-cdk-python.html
 
 1. Install requirements
 
