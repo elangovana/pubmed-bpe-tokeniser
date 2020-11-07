@@ -20,10 +20,23 @@ export PYTHON_PATH=./infra/src
 cdk --app "python infra/src/app.py" synth
 ```
 
-3. Deploy the stacks in `CDK.out` once you run CDK Synth
+### Deploy the stacks in `CDK.out` once you run CDK Synth
 
-    - cdk.out/bpe-tokeniser-1-CI.template.json - Continous integration stack 
-    - cdk.out/bpe-tokeniser-2-sagemaker.template.json - SageMaker 
+#### Continous integration stack 
     
-    1. Once you deploy the Continous integration stack , enable the github connections on AWS Codepipeline
+1. Deploy the cdk.out/bpe-tokeniser-1-CI.template.json 
+
+1. Once you deploy the Continous integration stack , enable the github connections on AWS Codepipeline
     ![docs/connections.png](docs/connections.png)
+    
+    
+#### SageMaker 
+    
+1. Deploy the cdk.out/bpe-tokeniser-2-sagemaker.template.json, this deploys the Sagemaker role and bucket.
+
+     ![docs/sagemakerstack_input.png](docs/sagemakerstack_input.png) 
+     
+     Make a note of the output role
+     
+     ![docs/sagemakerstack_output.png](docs/sagemakerstack_output.png) 
+
