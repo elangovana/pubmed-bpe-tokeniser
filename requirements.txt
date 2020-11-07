@@ -1,0 +1,2 @@
+sagemaker==2.16.1
+pandas==1.1.4
