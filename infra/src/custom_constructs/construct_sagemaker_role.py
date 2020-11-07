@@ -21,7 +21,7 @@ class ConstructSageMakerRole(aws_iam.Role):
     Custom SageMaker role construct , with minimum permissions required to run the preprocessor
     """
 
-    def __init__(self, scope: core.Construct, id: str, managed_policy: IManagedPolicy):
+    def __init__(self, scope: core.Construct, id: str, managed_policy: IManagedPolicy, role_name: str = None):
         # S3 Bucket for SageMaker internal access
         s3_sagemaker_bucket_access = aws_iam.PolicyDocument(
             statements=[
@@ -58,5 +58,5 @@ class ConstructSageMakerRole(aws_iam.Role):
                              "CloudWatchAccess": cloudwatch_access
 
                          },
-                         managed_policies=[managed_policy]
+                         managed_policies=[managed_policy], role_name=role_name
                          )

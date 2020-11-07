@@ -14,6 +14,7 @@
 # *****************************************************************************
 
 from aws_cdk import core
+from aws_cdk.core import Aws
 
 from custom_constructs.construct_preprocessor_policy import ConstructPreprocessorPolicy
 from custom_constructs.construct_sagemaker_bucket import ConstructSageMakerBucket
@@ -55,7 +56,7 @@ class SageMakerStack(core.Stack):
 
         # Create Sagemaker Role
         sagemaker_role = ConstructSageMakerRole(
-            self, "RoleSageMaker", managed_policy=fd_policy)
+            self, "RoleSageMaker", managed_policy=fd_policy, role_name=Aws.STACK_NAME + "-SageMakerRole")
 
         core.CfnOutput(self, "SageMakeRoleOutput", description="SageMaker Role Arn", export_name="SageMakerRole",
                        value=sagemaker_role.role_arn)
