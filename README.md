@@ -35,3 +35,15 @@ python src/pubmed_bpe_tokeniser.py --datadir tests/data --outputfile vocab.json
 ```
 
 
+3. To run on Amazon Sagemaker
+    
+    - Install sagemaker
+    
+    ```bash
+     pip install -r requirements_notebook.txt
+    ```
+    
+    - See notebook [sagemaker.ipynb](sagemaker.ipynb)
+
+
+
