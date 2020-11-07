@@ -1,28 +1,37 @@
+# Infrastructure on AWS 
+
+This deploys AWS infrastructure such as 
+
+1. S3 bucket
+2. IAM policies and roles
+3. AWS Codepipeline for building docker
+4. Docker in AWS ECR
 
 ### Prerequisites 
 
 1. Install AWS CDK
 
 
-
 ## Setup 
 
-```bash
+1. Install requirements
 
-pip install -r infra/src/requirements.txt
+    ```bash   
+    pip install -r infra/src/requirements.txt   
+    ```
 
-```
-2. Synth Cloudformation
+2. Synth Cloudformation template, which will produce the output in cdk.out
 
-```bash
-export PYTHON_PATH=./infra/src
+    ```bash
+    export PYTHON_PATH=./infra/src    
+    cdk --app "python infra/src/app.py" synth
+    ```
 
-cdk --app "python infra/src/app.py" synth
-```
+## Deploy cloudformation stacks
 
-### Deploy the stacks in `CDK.out` once you run CDK Synth
+Here you deploy 2 stacks in `CDK.out`
 
-#### Continous integration stack 
+#### Step 1. Continous integration stack 
     
 1. Deploy the cdk.out/bpe-tokeniser-1-CI.template.json 
 
@@ -30,7 +39,7 @@ cdk --app "python infra/src/app.py" synth
     ![docs/connections.png](docs/connections.png)
     
     
-#### SageMaker 
+#### Step 2. SageMaker Stack
     
 1. Deploy the cdk.out/bpe-tokeniser-2-sagemaker.template.json, this deploys the Sagemaker role and bucket.
 
