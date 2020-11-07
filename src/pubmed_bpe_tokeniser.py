@@ -15,8 +15,10 @@ class PubmedBPETokenisor:
     def __init__(self, vocab_size=10000, min_frequency=2, lower_case=False):
         self.min_frequency = min_frequency
         self.vocab_size = vocab_size
-        self._tokenizer = CharBPETokenizer(unk_token="<UNK>", lowercase=lower_case)
-        self._special_tokens = ["<PAD>"]
+        unknown_token = "<UNK>"
+        self._special_tokens = ["<PAD>", unknown_token]
+
+        self._tokenizer = CharBPETokenizer(unk_token=unknown_token, lowercase=lower_case)
 
     @property
     def _logger(self):
