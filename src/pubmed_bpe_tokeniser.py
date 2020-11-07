@@ -25,12 +25,14 @@ class PubmedBPETokenisor:
     def train(self, pubmed_json_files: List[str], dest_token_file_json, tempdir=None):
         tempdir = tempdir or tempfile.mkdtemp()
 
+        self._logger.info("Extracting title and abstract..")
         temp_textfiles = []
         # Extract text only and write to temp
         for f in pubmed_json_files:
             temp_textfiles.append(self._extract_text_file(f, tempdir))
 
         # Train tokeniser
+        self._logger.info("Running tokeniser with vocab size {}".format(self.vocab_size))
         self._tokenizer.train(files=temp_textfiles, vocab_size=self.vocab_size, min_frequency=self.min_frequency,
                               special_tokens=self._special_tokens)
 
@@ -40,6 +42,7 @@ class PubmedBPETokenisor:
         self._tokenizer.save(dest_token_file_json)
 
     def _extract_text_file(self, jsonfile, dest_dir):
+
         dest_file = os.path.join(dest_dir, os.path.basename(jsonfile))
 
         with open(jsonfile, "r") as f:
@@ -53,10 +56,19 @@ class PubmedBPETokenisor:
         return dest_file
 
     def train_from_dir(self, pubmed_json_files_dir: str, dest_token_file_json, tempdir=None):
+        self._logger.info("Training using pubmed json files in  {}".format(pubmed_json_files_dir))
+
         json_files = list(glob.glob("{}/*.json".format(pubmed_json_files_dir.rstrip(os.sep))))
+
+        self._logger.info("Starting training using {} files".format(len(json_files)))
+
         self.train(json_files, dest_token_file_json, tempdir)
 
+        self._logger.info("Training complete".format(len(json_files)))
+
+
     def _clean_up_temp_files(self, textfiles):
+        self._logger.info("Cleaning up temp files")
         for f in textfiles:
             os.remove(f)
 
