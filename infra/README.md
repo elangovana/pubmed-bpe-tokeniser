@@ -9,10 +9,16 @@ This deploys AWS infrastructure such as
 
 ### Prerequisites 
 
-1. Install AWS CDK
+
 
 
 ## Setup 
+
+1. Prerequisites
+
+   - Python 3.7
+   - Create virtual environment
+   - AWS CDK , see https://docs.aws.amazon.com/cdk/latest/guide/work-with-cdk-python.html
 
 1. Install requirements
 
