@@ -1,0 +1,50 @@
+version: 0.2
+
+env:
+    variables:
+      nodeversion: 10
+      pythonversion: 3.7
+      cdkartifact: cdkartifacts.zip
+      account_id: $(echo $CODEBUILD_BUILD_ARN | cut -d':' -f 5)
+      docker_image: $account_id.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/smg-frauddetector-preprocessor
+
+phases:
+  install:
+    runtime-versions:
+      python: $pythonversion
+      nodejs: $nodeversion
+
+
+
+
+  pre_build:
+    commands:
+    ##################################
+    # Any set up /run_tests.sh config goes here
+    ##################################
+    - echo prebuild steps
+    - bash ci_build/setup.sh
+    - bash ci_build/cdk_setup.sh
+
+  build:
+    commands:
+      # Run Tests
+      - echo Running tests
+      - export TESTREPORTDIR=$HOME/TESTREPORTS
+      - mkdir -p $TESTREPORTDIR
+      - bash ci_build/run_tests.sh testenv $TESTREPORTDIR/report.xml
+      - bash ci_build/cdk_validate_cfn.sh $cdkartifact
+
+      # Build docker
+      - bash ci_build/build_docker.sh $CODEBUILD_SRC_DIR $docker_image $AWS_DEFAULT_REGION
+
+artifacts:
+  files:
+    - $cdkartifact
+  name: cdkartifact
+
+#
+#reports:
+#  reportGroupPyTest:
+#    files:
+#      - $TESTREPORTDIR/*
