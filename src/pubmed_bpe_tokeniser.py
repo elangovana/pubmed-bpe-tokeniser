@@ -55,17 +55,18 @@ class PubmedBPETokenisor:
 
         return dest_file
 
-    def train_from_dir(self, pubmed_json_files_dir: str, dest_token_file_json, tempdir=None):
+    def train_from_dir(self, pubmed_json_files_dir: str, dest_token_file_json: str, tempdir: str = None):
         self._logger.info("Training using pubmed json files in  {}".format(pubmed_json_files_dir))
 
-        json_files = list(glob.glob("{}/*.json".format(pubmed_json_files_dir.rstrip(os.sep))))
+        file_search_pattern = "{}/*.json".format(pubmed_json_files_dir.rstrip(os.sep))
+        json_files = list(glob.glob(file_search_pattern))
 
-        self._logger.info("Starting training using {} files".format(len(json_files)))
+        assert len(json_files) > 0, f"No files matching pattern {file_search_pattern} were found"
 
+        self._logger.info("Starting training using {} files".format(len(file_search_pattern)))
         self.train(json_files, dest_token_file_json, tempdir)
 
         self._logger.info("Training complete".format(len(json_files)))
-
 
     def _clean_up_temp_files(self, textfiles):
         self._logger.info("Cleaning up temp files")
